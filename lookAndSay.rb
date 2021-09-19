@@ -6,40 +6,40 @@ class LookAndSay
         @seed = seed
     end
 
+    def self.getNext (current)
+        i=0
+        times = 1
+        nxt = ''
+        while current[i] do
+            if current[i] == current[i + 1] 
+                times += 1  
+            else
+                nxt.concat(times.to_s)
+                nxt.concat(current[i])
+                times = 1
+            end
+            i += 1
+        end
+        return nxt
+    end
+
     def printSequens (length=5)
-        count = 1
+        
+        length += 1
         current = @seed
         nxt = ''
-        puts @seed
-        while count < length do
-            last_char = ''
-            times = 0
         
-            current.each_char {|char|               
-
-                if last_char == ''
-                    last_char = char
-                end
-                if char == last_char
-                    times += 1              
-                else  
-                    nxt.concat(times.to_s)
-                    nxt.concat(last_char)
-                    last_char = char
-                    times = 1
-                end
-            }
-            nxt.concat(times.to_s)
-            nxt.concat(last_char)
-            puts nxt
-            current = nxt
-            nxt = ''
-            count += 1
+        (1...length).each do
+            puts current
+            current = LookAndSay.getNext(current)
+            
         end
     end
 end
 
 seq = LookAndSay.new
-seq.seed = '1'
-seq.printSequens(50)
+
+
+seq.seed = ''
+seq.printSequens
 
